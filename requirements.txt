@@ -1,0 +1,22 @@
+# Traffic Counting and Vehicle Categorization - Dependencies
+# Python 3.8+ recommended
+
+# Core: YOLO object detection and tracking
+ultralytics>=8.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+
+# Data and analytics
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# GUI
+customtkinter>=5.2.0
+Pillow>=10.0.0
+Flask>=2.3.0  # Web GUI server
+pywebview>=4.0.0  # Desktop app wrapper
+
+# Report generation (HTML + PDF)
+jinja2>=3.1.0
+reportlab>=4.0.0

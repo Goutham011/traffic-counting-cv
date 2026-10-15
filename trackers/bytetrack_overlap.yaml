@@ -1,0 +1,11 @@
+# Custom ByteTrack config: keep overlapping vehicles as separate tracks
+# Higher match_thresh = only associate when IoU is very high, so overlapping
+# detections are less likely to be merged into one track.
+
+tracker_type: bytetrack
+track_high_thresh: 0.2    # Keep more detections in first stage (helps occluded/overlapping)
+track_low_thresh: 0.1
+new_track_thresh: 0.2     # Start new track if no strong match (helps separate overlapping)
+track_buffer: 30
+match_thresh: 0.92        # Stricter: require high IoU to match → overlapping vehicles get separate IDs
+fuse_score: True

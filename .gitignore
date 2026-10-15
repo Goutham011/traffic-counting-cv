@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Output files (generated during processing)
+output/
+*.mp4
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.csv
+*.html
+
+# YOLO models (can be re-downloaded)
+*.pt
+yolov8*.pt
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+
+# Large split archives - exceeds GitHub 100MB limit, do not commit
+# Use GitHub Releases with LFS or external storage if needed
+*.z01
+*.z02
+*.z03
+*.z04
+*.zip
+traffic-counting-cv.z*
