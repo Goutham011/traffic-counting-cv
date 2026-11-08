@@ -1,9 +1,54 @@
-# Traffic Counting and Vehicle Categorization
+<div align="center">
+  <img src=".github/assets/project-banner.svg" alt="Traffic Counting CV — vehicle detection, tracking, and line-crossing analytics" width="100%" />
+</div>
 
-> Built and maintained by **Goutham sai Goparaju** — gouthamsaigoparaju@gmail.com
-> GitHub: https://github.com/Goutham011
+<div align="center">
 
-A proof-of-concept computer vision system that analyzes traffic from pre-recorded traffic/CCTV video. It uses **YOLO** for vehicle detection, **object tracking** for unique IDs, and a **virtual counting line** so each vehicle is counted only once when it crosses the line.
+**Turn a traffic video into tracked vehicles, crossing counts, and an analysis report.**
+
+![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+![YOLO](https://img.shields.io/badge/YOLO-detection%20%2B%20tracking-111827?style=flat-square)
+![OpenCV](https://img.shields.io/badge/OpenCV-video%20processing-5C3EE8?style=flat-square&logo=opencv&logoColor=white)
+
+[Why this project](#why-this-project) · [Architecture](#architecture) · [Features](#features) · [Quick start](#setup) · [Usage](#usage) · [Configuration](#configuration)
+
+</div>
+
+> **A detection is not a count.**
+>
+> This project follows vehicle tracks across frames and records a vehicle once when it crosses a configurable virtual line. It turns pre-recorded traffic or CCTV video into annotated footage, category totals, density charts, an HTML report, and CSV events.
+
+## Why this project?
+
+| Principle | What it means |
+| :--- | :--- |
+| **Count unique vehicles** | YOLO detection is paired with track IDs so one vehicle is not counted again on every frame. |
+| **Make the rule visible** | A configurable line and crossing direction define when a tracked vehicle contributes to the count. |
+| **Keep outputs useful** | Results include annotated video, category and time-window analytics, a report, and raw crossing events. |
+| **Run it your way** | Use a command-line pipeline, browser interface, CustomTkinter GUI, or desktop wrapper. |
+
+## Architecture
+
+```mermaid
+flowchart LR
+    Video["Traffic / CCTV video"] --> Detector["YOLO vehicle detection"]
+    Detector --> Tracker["Track IDs"]
+    Tracker --> Line["Virtual line crossing"]
+    Line --> Events["Unique crossing events"]
+    Events --> Analytics["Counts · categories · density"]
+    Detector --> Annotated["Annotated video"]
+    Analytics --> Report["Charts · HTML report · CSV"]
+```
+
+## Engineering highlights
+
+| Area | Implementation |
+| :--- | :--- |
+| **Detection and tracking** | Ultralytics YOLO detects vehicle classes and the configured tracker maintains IDs across frames. |
+| **Line-crossing counter** | Relative line coordinates and a selected crossing direction support different camera views; a track is counted once. |
+| **Batch processing** | Frame limits and optional annotation help inspect a short clip before processing a full video. |
+| **Multiple interfaces** | The same processing project is exposed through CLI, Flask web UI, CustomTkinter GUI, and a PyWebView desktop wrapper. |
+| **Analysis artifacts** | Per-category totals, time-window density, charts, HTML report, annotated footage, and event CSV are generated from a run. |
 
 ## Features
 
@@ -19,24 +64,21 @@ A proof-of-concept computer vision system that analyzes traffic from pre-recorde
 
 ## Project Structure
 
-```
+```text
 traffic-counting-cv/
-├── config.py           # Central configuration (line, model, paths)
-├── detector.py         # YOLO-based vehicle detection and tracking
-├── tracker.py          # Line-crossing counter and crossing events
-├── video_processor.py  # Main pipeline: read video → detect → count → optional write
-├── analytics.py        # Aggregate stats (totals, categories, time windows)
-├── visualizer.py       # Draw boxes/IDs/line; generate charts
-├── report_generator.py # HTML summary report
-├── main.py             # CLI entry point
-├── gui.py              # Desktop GUI (CustomTkinter)
-├── requirements.txt
-├── README.md
-└── output/             # Created at run time
-    ├── annotated_videos/
-    ├── analytics/      # PNG charts
-    ├── reports/        # HTML report
-    └── data/           # CSV events
+├── config.py           Configuration for video, detection, tracking, and counting line
+├── detector.py         YOLO detection and tracking adapter
+├── tracker.py          Track state and one-time crossing counter
+├── video_processor.py  Frame-by-frame processing pipeline
+├── analytics.py        Category totals and time-window statistics
+├── visualizer.py       Annotated frames and analytics charts
+├── report_generator.py HTML summary report generation
+├── main.py             Command-line entry point
+├── web_app.py          Flask browser interface
+├── gui.pyw             CustomTkinter desktop interface
+├── desktop_app.py      PyWebView desktop wrapper
+├── static/             Browser interface assets
+└── output/             Generated artifacts (created at runtime)
 ```
 
 ## Setup
